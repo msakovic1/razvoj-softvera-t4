@@ -53,6 +53,7 @@ public class Artikal {
                 if (lista.get(i).equals(lista.get(j))) lista.remove(j);
             }
         }
+        return lista;
     }
 
     public boolean equals (Object object){
