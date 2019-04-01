@@ -6,13 +6,14 @@ public class Artikal {
     private String  šifra, naziv;
     private Double cijena;
 
-    public Artikal(String šifra, String naziv, Double cijena) {
-        setCijena(cijena);
-        setNaziv(naziv);
-        setŠifra(šifra);
-        this.šifra = šifra;
-        this.naziv = naziv;
-        this.cijena = cijena;
+    public Artikal(String ulaz) {
+        String[] ulazi = ulaz.split(",");
+        setŠifra(ulazi[1]);
+        setNaziv(ulazi[2]);
+        setCijena(Double.parseDouble(ulazi[2]));
+    }
+    public Artikal (){
+
     }
 
     public String getŠifra() {
@@ -20,7 +21,7 @@ public class Artikal {
     }
 
     public void setŠifra(String šifra) {
-        if (naziv.isEmpty()) throw new IllegalArgumentException("Polje nesmije biti prazno.");
+        if (šifra == null || šifra.isEmpty()) throw new IllegalArgumentException("Polje nesmije biti prazno.");
         this.šifra = šifra;
     }
 
@@ -29,7 +30,7 @@ public class Artikal {
     }
 
     public void setNaziv(String naziv) {
-        if (naziv.isEmpty()) throw new IllegalArgumentException("Polje nesmije biti prazno.");
+        if (naziv == null || naziv.isEmpty()) throw new IllegalArgumentException("Polje nesmije biti prazno.");
         this.naziv = naziv;
     }
 
@@ -42,12 +43,22 @@ public class Artikal {
         this.cijena = cijena;
     }
 
-    @Override
     public String toString() {
-        return "Artikal{" +
-                "šifra='" + šifra + '\'' +
-                ", naziv='" + naziv + '\'' +
-                ", cijena=" + cijena +
-                '}';
+        return šifra + "," + naziv + "," + cijena;
+    }
+
+    public static ArrayList<Artikal> izbaciDuplikate (ArrayList<Artikal> lista){
+        for (int i = 0; i < lista.size(); i++) {
+            for (int j = 0; j < lista.size(); j++) {
+                if (lista.get(i).equals(lista.get(j))) lista.remove(j);
+            }
+        }
+    }
+
+    public boolean equals (Object object){
+        Artikal a = (Artikal) object;
+        return šifra.equals(a.getŠifra())
+            && naziv.equals(a.getNaziv())
+            && cijena.equals(a.getCijena());
     }
 }
